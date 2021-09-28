@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import LayoutMaster from "../layout/master"
+import LayoutMaster from "../layout/master";
 import { allLogs } from "../data/serverdata";
-import Evergreentable from "../components/tables/evergreentable"
-import InfoBox from "./info"
+import Evergreentable from "../components/tables/evergreentable";
+import InfoBox from "./info";
 
 import {
   TextInputField,
@@ -13,7 +13,7 @@ import {
   Button,
   toaster,
   Spinner,
-  Combobox,
+  Combobox
 } from "evergreen-ui";
 
 const centerForm = css`
@@ -34,7 +34,6 @@ const selectCustom = css`
 `;
 
 const LoggerPage = () => {
-
   const [data, setData] = useState([]);
   const [logdata, setLogData] = useState([]);
   const cols = [
@@ -42,7 +41,7 @@ const LoggerPage = () => {
     { id: 2, name: "Count" },
     { id: 3, name: "Time" },
     { id: 3, name: "Status" },
-    { id: 4, name: "" },
+    { id: 4, name: "" }
   ];
 
   useEffect(() => {
@@ -51,8 +50,8 @@ const LoggerPage = () => {
 
   const loadData = async () => {
     const data = await allLogs();
-    console.log(data);
-    setData(data);
+    //  console.log(data);
+    //  setData(data);
   };
 
   const setViewDetails = (data) => {
@@ -61,23 +60,18 @@ const LoggerPage = () => {
 
   const showFormations = () => {
     return (
-      <React.Fragment>        
-        <br/>
-          <InfoBox />
-        <br/>
-        <br/>
+      <React.Fragment>
+        <br />
         <Text fontWeight="bold">Select Bet Platform</Text>
-        <br/>
-        <br/>
-        <select
-          css={selectCustom}
-          onBlur={(event) => setFormationV(formationsList[event.target.value])}
-        >
+        <br />
+        <br />
+        <select css={selectCustom}>
           <option value="">Choose..</option>
           <option value="0"> Sportybet</option>
         </select>
         <br />
-        <br /></React.Fragment>
+        <br />
+      </React.Fragment>
     );
   };
 
@@ -90,12 +84,16 @@ const LoggerPage = () => {
         margin={24}
         display="flex"
         flexDirection="column"
-      >        <Pane width="60%">
+      >
+        {" "}
+        <Pane width="60%">
           <Pane clearfix>
             <Pane width="30%" marginRight={27} float="left">
-              {showFormations()} </Pane>
+              {showFormations()}{" "}
+            </Pane>
             <Pane width="30%" float="left">
-              <br /><br />
+              <br />
+              <br />
               <Button
                 onClick={(e) => {
                   e.preventDefault();
@@ -112,7 +110,6 @@ const LoggerPage = () => {
 
       <Pane
         css={centerForm}
-
         float="left"
         margin={24}
         display="flex"
@@ -121,14 +118,19 @@ const LoggerPage = () => {
         <Pane width="95%">
           <Pane clearfix>
             <Pane width="40%" elevation={1} marginRight={27} float="left">
-              <Evergreentable cols={[cols]} data={data} setLog={setViewDetails} />
+              <Evergreentable
+                cols={[cols]}
+                data={data}
+                setLog={setViewDetails}
+              />
             </Pane>
             <Pane width="55%" elevation={1} float="left">
               <h3>{JSON.stringify(logdata)}</h3>
             </Pane>
           </Pane>
         </Pane>
-      </Pane></React.Fragment>
+      </Pane>
+    </React.Fragment>
   );
 };
 const ViewPage = LayoutMaster(LoggerPage, { title: "logger" });
